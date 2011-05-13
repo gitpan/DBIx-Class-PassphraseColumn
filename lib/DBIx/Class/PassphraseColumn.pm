@@ -6,7 +6,7 @@ BEGIN {
   $DBIx::Class::PassphraseColumn::AUTHORITY = 'cpan:FLORA';
 }
 BEGIN {
-  $DBIx::Class::PassphraseColumn::VERSION = '0.01';
+  $DBIx::Class::PassphraseColumn::VERSION = '0.02';
 }
 # ABSTRACT: Automatically hash password/passphrase columns
 
@@ -72,7 +72,7 @@ sub set_column {
     my ($self, $col, $val, @rest) = @_;
 
     my $ppr_cols = $self->_passphrase_columns;
-    $self->next::method($col, $ppr_cols->{$col}->($val), @rest)
+    return $self->next::method($col, $ppr_cols->{$col}->($val), @rest)
         if exists $ppr_cols->{$col};
 
     return $self->next::method($col, $val, @rest);
@@ -257,7 +257,7 @@ Florian Ragwitz <rafl@debian.org>
 
 =head1 COPYRIGHT AND LICENSE
 
-This software is copyright (c) 2010 by Florian Ragwitz.
+This software is copyright (c) 2011 by Florian Ragwitz.
 
 This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.
